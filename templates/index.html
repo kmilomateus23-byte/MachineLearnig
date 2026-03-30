@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning App</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+        }
+
+        /* NAVBAR */
+        nav {
+            background-color: #1a1a2e;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            gap: 10px;
+        }
+
+        nav a.brand {
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            text-decoration: none;
+            margin-right: 30px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item > a {
+            color: #ccc;
+            text-decoration: none;
+            padding: 20px 15px;
+            display: block;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .nav-item > a:hover { color: white; }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background-color: #16213e;
+            border-radius: 8px;
+            min-width: 200px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        .nav-item:hover .dropdown { display: block; }
+
+        .dropdown a {
+            display: block;
+            padding: 12px 20px;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .dropdown a:hover {
+            background-color: #0f3460;
+            color: white;
+        }
+
+        /* HERO */
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: calc(100vh - 60px);
+            text-align: center;
+            padding: 40px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #718096;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 35px 25px;
+            width: 230px;
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            border-color: #667eea;
+            background-color: #667eea;
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        .card .icon { font-size: 42px; margin-bottom: 14px; }
+        .card h2 { font-size: 16px; font-weight: 600; }
+        .card p { font-size: 13px; margin-top: 8px; opacity: 0.75; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a class="brand" href="/">🤖 ML App</a>
+
+        <div class="nav-item">
+            <a href="/">Home</a>
+        </div>
+
+        <div class="nav-item">
+            <a href="#">ML Use Cases ▾</a>
+            <div class="dropdown">
+                <a href="/linearRegression/">📈 Linear Regression</a>
+                <a href="/logisticRegression/">🧠 Logistic Regression</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <a href="#">Supervised ML ▾</a>
+            <div class="dropdown">
+                <a href="/linearRegression/">📈 Linear Regression</a>
+                <a href="/logisticRegression/">🧠 Logistic Regression</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>🤖 Machine Learning App</h1>
+        <p>Select a model to get started</p>
+
+        <div class="cards">
+            <a href="/linearRegression/" class="card">
+                <div class="icon">📈</div>
+                <h2>Linear Regression</h2>
+                <p>Predict a grade based on study hours</p>
+            </a>
+            <a href="/logisticRegression/" class="card">
+                <div class="icon">🧠</div>
+                <h2>Logistic Regression</h2>
+                <p>Predict if a customer will make a purchase</p>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

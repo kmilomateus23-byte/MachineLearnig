@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistic Regression</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; }
+
+        nav {
+            background-color: #1a1a2e;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            gap: 10px;
+        }
+        nav a.brand { color: white; font-weight: bold; font-size: 18px; text-decoration: none; margin-right: 30px; }
+        .nav-item { position: relative; }
+        .nav-item > a { color: #ccc; text-decoration: none; padding: 20px 15px; display: block; font-size: 14px; }
+        .nav-item > a:hover { color: white; }
+        .dropdown { display: none; position: absolute; top: 60px; left: 0; background-color: #16213e; border-radius: 8px; min-width: 200px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 100; }
+        .nav-item:hover .dropdown { display: block; }
+        .dropdown a { display: block; padding: 12px 20px; color: #ccc; text-decoration: none; font-size: 14px; }
+        .dropdown a:hover { background-color: #0f3460; color: white; }
+
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 { color: #1a1a2e; font-size: 22px; margin-bottom: 8px; }
+        p { color: #718096; font-size: 14px; margin-bottom: 24px; }
+        label { font-size: 14px; color: #2d3748; font-weight: 500; }
+        input {
+            width: 100%; padding: 10px 14px; margin: 8px 0 20px;
+            border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px;
+        }
+        input:focus { outline: none; border-color: #667eea; }
+        button {
+            width: 100%; padding: 12px; background-color: #667eea;
+            color: white; border: none; border-radius: 8px;
+            font-size: 15px; cursor: pointer; transition: background 0.3s;
+        }
+        button:hover { background-color: #5a67d8; }
+        .result {
+            margin-top: 24px; padding: 16px;
+            background-color: #ebf4ff; border-radius: 8px;
+            color: #2b6cb0; font-weight: 600; text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a class="brand" href="/">🤖 ML App</a>
+        <div class="nav-item"><a href="/">Home</a></div>
+        <div class="nav-item">
+            <a href="#">ML Use Cases ▾</a>
+            <div class="dropdown">
+                <a href="/linearRegression/">📈 Linear Regression</a>
+                <a href="/logisticRegression/">🧠 Logistic Regression</a>
+            </div>
+        </div>
+        <div class="nav-item">
+            <a href="#">Supervised ML ▾</a>
+            <div class="dropdown">
+                <a href="/linearRegression/">📈 Linear Regression</a>
+                <a href="/logisticRegression/">🧠 Logistic Regression</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>🧠 Logistic Regression</h1>
+        <p>Predict if a customer will make a purchase</p>
+        <form method="post">
+            <label>Age</label>
+            <input type="number" name="edad" placeholder="e.g. 30" required>
+
+            <label>Monthly Income</label>
+            <input type="number" name="ingreso_mensual" placeholder="e.g. 3000" required>
+
+            <label>Web Visits per Month</label>
+            <input type="number" name="visitas_web_mes" placeholder="e.g. 10" required>
+
+            <label>Time on Site (min)</label>
+            <input type="number" name="tiempo_sitio_min" placeholder="e.g. 15" required>
+
+            <label>Previous Purchases</label>
+            <input type="number" name="compras_previas" placeholder="e.g. 2" required>
+
+            <label>Discount Used</label>
+            <input type="number" name="descuento_usado" placeholder="0 or 1" required>
+
+            <button type="submit">Predict</button>
+        </form>
+        {% if result is not none %}
+            <div class="result">🛒 Prediction: {{ result }}</div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
