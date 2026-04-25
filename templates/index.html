@@ -1,176 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Machine Learning App</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ML Studio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #f0f2f5;
-        }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f5f5f3;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-        /* NAVBAR */
-        nav {
-            background-color: #1a1a2e;
-            padding: 0 40px;
-            display: flex;
-            align-items: center;
-            height: 60px;
-            gap: 10px;
-        }
+    nav {
+      background: #ffffff;
+      border-bottom: 0.5px solid rgba(0,0,0,0.1);
+      padding: 0 2rem;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-        nav a.brand {
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            text-decoration: none;
-            margin-right: 30px;
-        }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #1a1a1a;
+      text-decoration: none;
+    }
 
-        .nav-item {
-            position: relative;
-        }
+    .nav-brand-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #185FA5;
+      animation: pulse 2s infinite;
+    }
 
-        .nav-item > a {
-            color: #ccc;
-            text-decoration: none;
-            padding: 20px 15px;
-            display: block;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
 
-        .nav-item > a:hover { color: white; }
+    .nav-links a {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #666;
+      text-decoration: none;
+    }
 
-        .dropdown {
-            display: none;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            background-color: #16213e;
-            border-radius: 8px;
-            min-width: 200px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            z-index: 100;
-        }
+    .nav-links a:hover { background: #f0f0ee; color: #1a1a1a; }
+    .nav-links a.active { background: #e6f1fb; color: #185FA5; }
 
-        .nav-item:hover .dropdown { display: block; }
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      gap: 3rem;
+    }
 
-        .dropdown a {
-            display: block;
-            padding: 12px 20px;
-            color: #ccc;
-            text-decoration: none;
-            font-size: 14px;
-            transition: background 0.2s;
-        }
+    .hero { text-align: center; display: flex; flex-direction: column; gap: 0.75rem; }
 
-        .dropdown a:hover {
-            background-color: #0f3460;
-            color: white;
-        }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: #e6f1fb;
+      color: #185FA5;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
 
-        /* HERO */
-        .hero {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: calc(100vh - 60px);
-            text-align: center;
-            padding: 40px;
-        }
+    .hero h1 { font-size: 28px; font-weight: 500; color: #1a1a1a; }
+    .hero p  { font-size: 14px; color: #666; }
 
-        .hero h1 {
-            font-size: 36px;
-            color: #1a1a2e;
-            margin-bottom: 10px;
-        }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 720px;
+    }
 
-        .hero p {
-            color: #718096;
-            font-size: 16px;
-            margin-bottom: 40px;
-        }
+    @media (max-width: 600px) {
+      .cards { grid-template-columns: 1fr; }
+    }
 
-        .cards {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+    .card {
+      background: #ffffff;
+      border: 0.5px solid rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: 0.2s;
+    }
 
-        .card {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 35px 25px;
-            width: 230px;
-            text-decoration: none;
-            color: #2d3748;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
 
-        .card:hover {
-            border-color: #667eea;
-            background-color: #667eea;
-            color: white;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
-        }
+    .card-title { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+    .card-desc  { font-size: 12px; color: #666; }
 
-        .card .icon { font-size: 42px; margin-bottom: 14px; }
-        .card h2 { font-size: 16px; font-weight: 600; }
-        .card p { font-size: 13px; margin-top: 8px; opacity: 0.75; }
-    </style>
+    .card-tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 0.5px solid rgba(0,0,0,0.1);
+      width: fit-content;
+    }
+
+    footer {
+      border-top: 0.5px solid rgba(0,0,0,0.1);
+      padding: 1rem;
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  </style>
 </head>
+
 <body>
 
-    <nav>
-        <a class="brand" href="/">🤖 ML App</a>
+  <nav>
+    <a href="/" class="nav-brand">
+      <div class="nav-brand-dot"></div>
+      ML Studio
+    </a>
+    <div class="nav-links">
+      <a href="/" class="active">Inicio</a>
+      <a href="/linearRegression/">Linear</a>
+      <a href="/logisticRegression/">Logistic</a>
+      <a href="/clustering/">Clustering</a>
+    </div>
+  </nav>
 
-        <div class="nav-item">
-            <a href="/">Home</a>
-        </div>
-
-        <div class="nav-item">
-            <a href="#">ML Use Cases ▾</a>
-            <div class="dropdown">
-                <a href="/linearRegression/">📈 Linear Regression</a>
-                <a href="/logisticRegression/">🧠 Logistic Regression</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <a href="#">Supervised ML ▾</a>
-            <div class="dropdown">
-                <a href="/linearRegression/">📈 Linear Regression</a>
-                <a href="/logisticRegression/">🧠 Logistic Regression</a>
-            </div>
-        </div>
-    </nav>
+  <main>
 
     <div class="hero">
-        <h1>🤖 Machine Learning App</h1>
-        <p>Select a model to get started</p>
-
-        <div class="cards">
-            <a href="/linearRegression/" class="card">
-                <div class="icon">📈</div>
-                <h2>Linear Regression</h2>
-                <p>Predict a grade based on study hours</p>
-            </a>
-            <a href="/logisticRegression/" class="card">
-                <div class="icon">🧠</div>
-                <h2>Logistic Regression</h2>
-                <p>Predict if a customer will make a purchase</p>
-            </a>
-        </div>
+      <span class="hero-badge">Machine learning</span>
+      <h1>Convierte tus datos en decisiones inteligentes</h1>
+      <p>Explora modelos de Machine Learning, predice resultados y descubre oportunidades en segundos.</p>
     </div>
+
+    <div class="cards">
+
+      <a href="/linearRegression/" class="card">
+        <div>
+          <p class="card-title">Regresión Lineal</p>
+          <p class="card-desc">Predice tendencias y valores futuros con precisión. Ideal para análisis financieros, ventas y comportamiento.</p>
+        </div>
+        <span class="card-tag">Predicción</span>
+      </a>
+
+      <a href="/logisticRegression/" class="card">
+        <div>
+          <p class="card-title">Regresión Logística</p>
+          <p class="card-desc">Toma decisiones inteligentes clasificando datos. Perfecto para riesgos, clientes y detección de fraude.</p>
+        </div>
+        <span class="card-tag">Clasificación</span>
+      </a>
+
+      <a href="/clustering/" class="card">
+        <div>
+          <p class="card-title">Clustering</p>
+          <p class="card-desc">Descubre patrones ocultos y segmenta datos automáticamente. Ideal para marketing y análisis de usuarios.</p>
+        </div>
+        <span class="card-tag">Segmentación</span>
+      </a>
+
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 ML Studio — Inteligencia artificial simplificada
+  </footer>
 
 </body>
 </html>

@@ -1,83 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logistic Regression</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML Studio | Logistic Regression</title>
 
-        nav {
-            background-color: #1a1a2e;
-            padding: 0 40px;
-            display: flex;
-            align-items: center;
-            height: 60px;
-            gap: 10px;
-        }
-        nav a.brand { color: white; font-weight: bold; font-size: 18px; text-decoration: none; margin-right: 30px; }
-        .nav-item { position: relative; }
-        .nav-item > a { color: #ccc; text-decoration: none; padding: 20px 15px; display: block; font-size: 14px; }
-        .nav-item > a:hover { color: white; }
-        .dropdown { display: none; position: absolute; top: 60px; left: 0; background-color: #16213e; border-radius: 8px; min-width: 200px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 100; }
-        .nav-item:hover .dropdown { display: block; }
-        .dropdown a { display: block; padding: 12px 20px; color: #ccc; text-decoration: none; font-size: 14px; }
-        .dropdown a:hover { background-color: #0f3460; color: white; }
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .container {
-            max-width: 500px;
-            margin: 60px auto;
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-        h1 { color: #1a1a2e; font-size: 22px; margin-bottom: 8px; }
-        p { color: #718096; font-size: 14px; margin-bottom: 24px; }
-        label { font-size: 14px; color: #2d3748; font-weight: 500; }
-        input {
-            width: 100%; padding: 10px 14px; margin: 8px 0 20px;
-            border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px;
-        }
-        input:focus { outline: none; border-color: #667eea; }
-        button {
-            width: 100%; padding: 12px; background-color: #667eea;
-            color: white; border: none; border-radius: 8px;
-            font-size: 15px; cursor: pointer; transition: background 0.3s;
-        }
-        button:hover { background-color: #5a67d8; }
-        .result {
-            margin-top: 24px; padding: 16px;
-            background-color: #ebf4ff; border-radius: 8px;
-            color: #2b6cb0; font-weight: 600; text-align: center;
-        }
-    </style>
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #e4ecf7);
+    min-height: 100vh;
+}
+
+/* NAV */
+nav {
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav a.brand {
+    font-weight: 600;
+    font-size: 16px;
+    color: #1a1a1a;
+    text-decoration: none;
+}
+
+.nav-item a {
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 8px;
+}
+
+.nav-item a:hover {
+    background: #eef2f7;
+    color: #111;
+}
+
+/* WRAPPER */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px;
+}
+
+/* CARD */
+.container {
+    width: 100%;
+    max-width: 460px;
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    animation: fadeIn 0.6s ease;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #eef2ff;
+    color: #4f46e5;
+    border-radius: 999px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 20px;
+    color: #111827;
+}
+
+.desc {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+/* FORM */
+label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 16px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 5px;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(79,70,229,0.3);
+}
+
+/* RESULT */
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #eef2ff;
+    color: #4338ca;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* BACK */
+.back-btn {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #6366f1;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    text-decoration: underline;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
 </head>
+
 <body>
 
-    <nav>
-        <a class="brand" href="/">🤖 ML App</a>
-        <div class="nav-item"><a href="/">Home</a></div>
-        <div class="nav-item">
-            <a href="#">ML Use Cases ▾</a>
-            <div class="dropdown">
-                <a href="/linearRegression/">📈 Linear Regression</a>
-                <a href="/logisticRegression/">🧠 Logistic Regression</a>
-            </div>
-        </div>
-        <div class="nav-item">
-            <a href="#">Supervised ML ▾</a>
-            <div class="dropdown">
-                <a href="/linearRegression/">📈 Linear Regression</a>
-                <a href="/logisticRegression/">🧠 Logistic Regression</a>
-            </div>
-        </div>
-    </nav>
+<nav>
+    <a class="brand" href="/">🤖 ML Studio</a>
+    <div class="nav-item"><a href="/">Home</a></div>
+    <div class="nav-item"><a href="/linearRegression/">Linear</a></div>
+    <div class="nav-item"><a href="/logisticRegression/">Logistic</a></div>
+</nav>
 
+<div class="wrapper">
     <div class="container">
-        <h1>🧠 Logistic Regression</h1>
-        <p>Predict if a customer will make a purchase</p>
+
+        <div class="header">
+            <div class="badge">Classification Model</div>
+            <h1>🧠 Logistic Regression</h1>
+            <p class="desc">
+                Este modelo permite predecir probabilidades y clasificar resultados (por ejemplo, si un cliente comprará o no).
+                Es ideal para análisis de comportamiento, marketing y toma de decisiones basada en datos.
+            </p>
+        </div>
+
         <form method="post">
             <label>Age</label>
             <input type="number" name="edad" placeholder="e.g. 30" required>
@@ -94,15 +205,22 @@
             <label>Previous Purchases</label>
             <input type="number" name="compras_previas" placeholder="e.g. 2" required>
 
-            <label>Discount Used</label>
+            <label>Discount Used (0 = No, 1 = Yes)</label>
             <input type="number" name="descuento_usado" placeholder="0 or 1" required>
 
-            <button type="submit">Predict</button>
+            <button type="submit">Predict Now</button>
         </form>
+
         {% if result is not none %}
-            <div class="result">🛒 Prediction: {{ result }}</div>
+            <div class="result">
+                🛒 Prediction: {{ result }}
+            </div>
         {% endif %}
+
+        <a href="/" class="back-btn">⬅ Volver al inicio</a>
+
     </div>
+</div>
 
 </body>
 </html>
