@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Clustering</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(to bottom, #e9ecf5, #cfd6e6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 600px;
+  text-align: center;
+}
+.btn {
+  margin-top: 20px;
+  display: block;
+  padding: 12px;
+  background: #5b5ce2;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Clustering Application / Aplicación de Clustering</h2>
+
+  <p>
+    Visualización de clusters generados con K-Means.<br>
+    Visualization of clusters generated using K-Means.
+  </p>
+
+  <canvas id="chart"></canvas>
+
+  <a href="/unsupervised/" class="btn">Volver / Back</a>
+</div>
+
+<script>
+fetch("/api/kmeans")
+.then(res => res.json())
+.then(res => {
+
+    const data = res.data;
+    const centroids = res.centroids;
+
+    const colors = ["red","blue","green"];
+
+    const datasets = [0,1,2].map(i => ({
+        label: "Cluster " + i,
+        data: data.filter(d => d.cluster === i)
+                  .map(d => ({x: d.x, y: d.y})),
+        backgroundColor: colors[i]
+    }));
+
+    datasets.push({
+        label: "Centroids",
+        data: centroids.map(c => ({x: c[0], y: c[1]})),
+        backgroundColor: "black",
+        pointRadius: 6
+    });
+
+    new Chart(document.getElementById("chart"), {
+        type: "scatter",
+        data: { datasets }
+    });
+});
+</script>
+
+</body>
+</html>

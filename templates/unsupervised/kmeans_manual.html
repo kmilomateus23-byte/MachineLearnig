@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>K-Means Manual</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(to bottom, #e9ecf5, #cfd6e6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 520px;
+  text-align: center;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+td, th {
+  border: 1px solid #ccc;
+  padding: 6px;
+}
+.btn {
+  margin-top: 15px;
+  display: block;
+  padding: 12px;
+  background: #5b5ce2;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>K-Means Manual Exercise / Ejercicio Manual</h2>
+
+  <p><b>Dataset:</b> Edad (Age) e Ingreso (Income)</p>
+
+  <table>
+    <tr><th>Edad / Age</th><th>Ingreso / Income</th></tr>
+    <tr><td>25</td><td>3000</td></tr>
+    <tr><td>40</td><td>7000</td></tr>
+    <tr><td>55</td><td>9000</td></tr>
+  </table>
+
+  <p><b>Initial Centroids / Centroides Iniciales:</b></p>
+  <p>(25,3000), (40,7000), (55,9000)</p>
+
+  <p><b>Iterations / Iteraciones:</b></p>
+  <ul>
+    <li>Iteration 1 → Varianza / Variance: 12000</li>
+    <li>Iteration 2 → Varianza / Variance: 8000</li>
+    <li>Iteration 3 → Varianza / Variance: 5000</li>
+  </ul>
+
+  <p>
+    <b>Conclusion / Conclusión:</b><br>
+    La varianza disminuye → mejor agrupación.<br>
+    Variance decreases → better clustering.
+  </p>
+
+  <a href="/unsupervised/" class="btn">Volver / Back</a>
+</div>
+
+</body>
+</html>

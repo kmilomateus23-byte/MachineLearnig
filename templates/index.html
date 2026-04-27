@@ -1,198 +1,214 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ML Studio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: #f5f5f3;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
     }
 
+    /* NAV */
     nav {
-      background: #ffffff;
-      border-bottom: 0.5px solid rgba(0,0,0,0.1);
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
       padding: 0 2rem;
-      height: 52px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      height: 64px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
     }
 
     .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      color: #1e293b;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #64748b;
+      font-size: .9rem;
       font-weight: 500;
-      color: #1a1a1a;
-      text-decoration: none;
     }
 
-    .nav-brand-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #185FA5;
-      animation: pulse 2s infinite;
+    nav a:hover {
+      color: #4f46e5;
     }
 
-    .nav-links { display: flex; align-items: center; gap: 4px; }
-
-    .nav-links a {
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      color: #666;
-      text-decoration: none;
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 90px 20px 60px;
+      background: linear-gradient(to bottom, #ffffff, #f1f5f9);
     }
 
-    .nav-links a:hover { background: #f0f0ee; color: #1a1a1a; }
-    .nav-links a.active { background: #e6f1fb; color: #185FA5; }
-
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 2rem;
-      gap: 3rem;
-    }
-
-    .hero { text-align: center; display: flex; flex-direction: column; gap: 0.75rem; }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      background: #e6f1fb;
-      color: #185FA5;
-      border-radius: 999px;
+    .tag {
+      background: #eef2ff;
+      color: #4f46e5;
+      padding: 6px 14px;
+      border-radius: 20px;
       font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: #64748b;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+
+    /* BUTTON */
+    .cta {
+      background: #4f46e5;
+      color: white;
+      padding: 12px 22px;
+      border-radius: 10px;
+      text-decoration: none;
       font-weight: 500;
     }
 
-    .hero h1 { font-size: 28px; font-weight: 500; color: #1a1a1a; }
-    .hero p  { font-size: 14px; color: #666; }
+    .cta:hover {
+      background: #4338ca;
+    }
 
+    /* CARDS */
     .cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      width: 100%;
-      max-width: 720px;
-    }
-
-    @media (max-width: 600px) {
-      .cards { grid-template-columns: 1fr; }
+      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
     }
 
     .card {
-      background: #ffffff;
-      border: 0.5px solid rgba(0,0,0,0.1);
-      border-radius: 12px;
-      padding: 1.5rem 1.25rem;
+      background: white;
+      border-radius: 14px;
+      padding: 24px;
+      border: 1px solid #e2e8f0;
       text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: 0.2s;
+      color: inherit;
+      transition: .2s;
     }
 
     .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,.08);
     }
 
-    .card-title { font-size: 14px; font-weight: 600; color: #1a1a1a; }
-    .card-desc  { font-size: 12px; color: #666; }
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
 
-    .card-tag {
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      border: 0.5px solid rgba(0,0,0,0.1);
-      width: fit-content;
+    .card p {
+      color: #64748b;
+      font-size: .9rem;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
     }
 
     footer {
-      border-top: 0.5px solid rgba(0,0,0,0.1);
-      padding: 1rem;
       text-align: center;
+      padding: 30px;
       font-size: 12px;
-      color: #aaa;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
     }
-
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   </style>
 </head>
 
 <body>
 
-  <nav>
-    <a href="/" class="nav-brand">
-      <div class="nav-brand-dot"></div>
-      ML Studio
-    </a>
-    <div class="nav-links">
-      <a href="/" class="active">Inicio</a>
-      <a href="/linearRegression/">Linear</a>
-      <a href="/logisticRegression/">Logistic</a>
-      <a href="/clustering/">Clustering</a>
-    </div>
-  </nav>
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a href="/" class="nav-brand">ML Studio</a>
 
-  <main>
+    <a href="/linearRegression/">Linear</a>
+    <a href="/logisticRegression/">Logistic</a>
+    <a href="/clustering/">Clustering</a>
+    <a href="/unsupervised/">Unsupervised</a>
+  </div>
+</nav>
 
-    <div class="hero">
-      <span class="hero-badge">Machine learning</span>
-      <h1>Convierte tus datos en decisiones inteligentes</h1>
-      <p>Explora modelos de Machine Learning, predice resultados y descubre oportunidades en segundos.</p>
-    </div>
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">Machine Learning Platform</div>
 
-    <div class="cards">
+  <h1>Transform Data into Smart Decisions</h1>
 
-      <a href="/linearRegression/" class="card">
-        <div>
-          <p class="card-title">Regresión Lineal</p>
-          <p class="card-desc">Predice tendencias y valores futuros con precisión. Ideal para análisis financieros, ventas y comportamiento.</p>
-        </div>
-        <span class="card-tag">Predicción</span>
-      </a>
+  <p class="subtitle">
+    Plataforma interactiva para explorar modelos de Machine Learning,
+    analizar datos y descubrir patrones de forma visual y sencilla.
+  </p>
 
-      <a href="/logisticRegression/" class="card">
-        <div>
-          <p class="card-title">Regresión Logística</p>
-          <p class="card-desc">Toma decisiones inteligentes clasificando datos. Perfecto para riesgos, clientes y detección de fraude.</p>
-        </div>
-        <span class="card-tag">Clasificación</span>
-      </a>
+  <a href="/unsupervised/" class="cta">Explorar Clustering</a>
+</div>
 
-      <a href="/clustering/" class="card">
-        <div>
-          <p class="card-title">Clustering</p>
-          <p class="card-desc">Descubre patrones ocultos y segmenta datos automáticamente. Ideal para marketing y análisis de usuarios.</p>
-        </div>
-        <span class="card-tag">Segmentación</span>
-      </a>
+<!-- CARDS -->
+<div class="cards">
 
-    </div>
+  <a href="/linearRegression/" class="card">
+    <h3>Linear Regression</h3>
+    <p>Predict numerical values and trends using historical data.</p>
+    <span class="badge" style="background:#eef2ff;color:#4f46e5;">Prediction</span>
+  </a>
 
-  </main>
+  <a href="/logisticRegression/" class="card">
+    <h3>Logistic Regression</h3>
+    <p>Classify data and make binary decisions efficiently.</p>
+    <span class="badge" style="background:#ecfdf5;color:#059669;">Classification</span>
+  </a>
 
-  <footer>
-    © 2026 ML Studio — Inteligencia artificial simplificada
-  </footer>
+  <a href="/clustering/" class="card">
+    <h3>Clustering</h3>
+    <p>Discover hidden patterns and segment your data automatically.</p>
+    <span class="badge" style="background:#fef3c7;color:#d97706;">Segmentation</span>
+  </a>
+
+  <a href="/unsupervised/" class="card">
+    <h3>Unsupervised Learning</h3>
+    <p>Explore K-Means from theory to real-world clustering visualization.</p>
+    <span class="badge" style="background:#f3e8ff;color:#7c3aed;">K-Means</span>
+  </a>
+
+</div>
+
+<footer>
+  © 2026 ML Studio — made simple
+</footer>
 
 </body>
 </html>
